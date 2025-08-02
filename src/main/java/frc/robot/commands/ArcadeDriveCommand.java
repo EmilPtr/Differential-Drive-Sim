@@ -13,10 +13,15 @@ public class ArcadeDriveCommand extends Command {
 
   // TODO: Insert your class variables here...
 
+  private final DriveSubsystem m_driveSubsystem;
+  private final CommandXboxController m_controller;
+
   /** Creates a new ArcadeDriveCommand. */
   // TODO: Insert your consutrctor parameters
-  public ArcadeDriveCommand() {
-    // TODO: Insert your constructor code here...
+  public ArcadeDriveCommand(DriveSubsystem driveSubsystem, CommandXboxController controller) {
+    m_driveSubsystem = driveSubsystem;
+    m_controller = controller;
+    addRequirements(m_driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -28,6 +33,7 @@ public class ArcadeDriveCommand extends Command {
   @Override
   public void execute() {
     // TODO: Insert your command code here...
+    m_driveSubsystem.arcadeDrive(m_controller.getLeftX(), m_controller.getLeftY());
   }
 
   // Called once the command ends or is interrupted.

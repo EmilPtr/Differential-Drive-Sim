@@ -5,12 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.sim.SparkMaxSim;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -43,6 +38,11 @@ public class DriveSubsystem extends SubsystemBase {
     StructPublisher<Pose2d> m_publisher;
 
     // TODO: Insert your drive motors and differential drive here...
+    private final SparkMax m_leftLeaderMotor = new SparkMax(DriveConstants.kLeftLeaderMotorID, SparkMax.MotorType.kBrushless);
+    private final SparkMax m_rightLeaderMotor = new SparkMax(DriveConstants.kLeftFollowerMotorID, SparkMax.MotorType.kBrushless);
+
+    private final DifferentialDrive m_differentialDrive = new DifferentialDrive(m_leftLeaderMotor, m_rightLeaderMotor);
+
 
     /** Creates a new DriveSubsystem. */
     public DriveSubsystem() {
@@ -66,7 +66,9 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightMotorSim = new SparkMaxSim(m_rightLeaderMotor, DCMotor.getNEO(2));
     }
 
-    // TODO: Insert your arcadeDrive method here...
+    public void arcadeDrive(double x, double y) {
+        m_differentialDrive.arcadeDrive(x, y);
+    }
 
     @Override
     public void periodic() {
