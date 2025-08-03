@@ -37,7 +37,6 @@ public class DriveSubsystem extends SubsystemBase {
 
     StructPublisher<Pose2d> m_publisher;
 
-    // TODO: Insert your drive motors and differential drive here...
     private final SparkMax m_leftLeaderMotor = new SparkMax(DriveConstants.kLeftLeaderMotorID, SparkMax.MotorType.kBrushless);
     private final SparkMax m_rightLeaderMotor = new SparkMax(DriveConstants.kLeftFollowerMotorID, SparkMax.MotorType.kBrushless);
 
@@ -59,9 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
                 m_driveSim.getRightPositionMeters());
 
         m_publisher = NetworkTableInstance.getDefault().getStructTopic("MyPose", Pose2d.struct).publish();
-
-        // TODO: Instantiate motors & differential drive, then configure motors here...
-
+        
         m_leftMotorSim = new SparkMaxSim(m_leftLeaderMotor, DCMotor.getNEO(2));
         m_rightMotorSim = new SparkMaxSim(m_rightLeaderMotor, DCMotor.getNEO(2));
     }
